@@ -1,8 +1,8 @@
 from typing import List
 from fastapi import FastAPI, File, UploadFile
-import utils
+from src import utils
 
-from modules import FaceFindor
+from src.modules import FaceFindor
 
 app = FastAPI()
 face_findor = FaceFindor()
