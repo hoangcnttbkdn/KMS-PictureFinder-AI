@@ -46,9 +46,11 @@ class FaceFindor:
         portrait_emb = predict[0]["embedding"] # Just get first embedding with shape 1x512
         portrait_face = self.crop_image(target_image, predict[0]["bbox"], reverse_channel=True)
 
-        result = dict();
-
+        result = dict()
+        idx = 0
         for image in list_images:
+            keyIdx = str(idx)
+            result[keyIdx] = dict()
             predict = self.app.get(image)
             contains_embs =  [item["embedding"] for item in predict] # With shape (num_face, 512)
             contains_faces = [self.crop_image(image, item["bbox"], reverse_channel=True) for item in predict]
@@ -61,15 +63,15 @@ class FaceFindor:
             best_match_face = contains_faces[best_match_index]
             if best_match_distance > THRESHOLD:
                 print(f"Match face in first image with confidence {best_match_distance}")
-                result["num_of_face"] = 999
-                result["match_face"] = True
-                result["face_location"] = [(0, 0), (69, 69)]
-                result["confident"] = best_match_distance
+                result[keyIdx]["num_of_face"] = 999
+                result[keyIdx]["match_face"] = True
+                result[keyIdx]["face_location"] = [(0, 0), (69, 69)]
+                result[keyIdx]["confident"] = float(best_match_distance)
             else:
                 print(f"No matching")
-                result["num_of_face"] = 111
-                result["match_face"] = False
-                result["face_location"] = [(0, 0), (69, 69)]
-                result["confident"] = best_match_distance
-
+                result[keyIdx]["num_of_face"] = 111
+                result[keyIdx]["match_face"] = False
+                result[keyIdx]["face_location"] = [(0, 0), (69, 69)]
+                result[keyIdx]["confident"] = float(best_match_distance)
+            idx += 1
         return result
