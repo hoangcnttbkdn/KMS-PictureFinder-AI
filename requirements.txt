@@ -1,0 +1,12 @@
+ez_setup
+wheel
+setuptools
+mxnet
+numpy
+cython
+fastapi
+uvicorn[standard]
+opencv-python
+python-multipart
+onnxruntime
+insightface
