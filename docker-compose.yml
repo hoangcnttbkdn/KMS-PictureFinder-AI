@@ -1,0 +1,11 @@
+version: "3.9"
+
+services:
+  app:
+    build: .
+    restart: always
+    container_name: picture-finder-ai
+    ports:
+      - "3000:8000"
+    volumes:
+      - "./volume/.insightface:/root/.insightface"
