@@ -3,7 +3,7 @@ WORKDIR /app
 COPY requirements.txt requirements.txt
 COPY pyproject.toml pyproject.toml
 RUN apt-get update \
-    && apt-get -y install g++ ffmpeg libsm6 libxext6 \
+    && apt-get -y install g++ ffmpeg libsm6 libxext6 swig \
     && pip install numpy cython
 RUN pip install -r requirements.txt
 COPY . .

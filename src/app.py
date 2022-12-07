@@ -3,9 +3,11 @@ from fastapi import FastAPI, File, UploadFile
 from src import utils
 
 from src.modules import FaceFindor
+from src.modules import MyOCR, OCRResult
 
 app = FastAPI()
 face_findor = FaceFindor()
+my_ocr = MyOCR()
 
 @app.post("/face-findor")
 async def create_upload_files(list_images: List[UploadFile], target_image: UploadFile=File()):
@@ -15,3 +17,9 @@ async def create_upload_files(list_images: List[UploadFile], target_image: Uploa
     results = face_findor(BGR_target_image, BGR_list_images)
     response = {index2file_name[int(key)]: results[key] for key in results}
     return response
+
+@app.post("/ocr")
+async def ocr_detect(image: UploadFile=File()):
+    image_converted = await utils.file2opencv(image)
+    result_list: List[OCRResult] = my_ocr.detect(image_converted)
+    return result_list

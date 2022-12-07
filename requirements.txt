@@ -10,3 +10,6 @@ opencv-python
 python-multipart
 onnxruntime
 insightface
+
+paddlepaddle
+paddleocr>=2.0.1
