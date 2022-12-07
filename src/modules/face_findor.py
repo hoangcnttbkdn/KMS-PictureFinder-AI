@@ -3,7 +3,6 @@ import cv2
 import numpy as np
 from fastapi import HTTPException
 from insightface.app import FaceAnalysis
-from insightface.data import get_image as ins_get_image
 from sklearn.metrics.pairwise import cosine_similarity
 from typing import List
 
