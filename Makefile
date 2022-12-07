@@ -8,3 +8,6 @@ install:
 
 run:
 	uvicorn src.app:app --port ${PORT}
+
+dc-up:
+	docker compose up -d
