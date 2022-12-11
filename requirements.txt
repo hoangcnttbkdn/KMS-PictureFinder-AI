@@ -11,6 +11,11 @@ python-multipart
 onnxruntime
 insightface
 
+imutils
+openpifpaf==0.12.14 
+torch==1.7.1 
+torchvision==0.8.2
+
 paddleocr>=2.0.1
 --extra-index-url https://mirror.baidu.com/pypi/simple
 paddlepaddle
