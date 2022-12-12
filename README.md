@@ -7,7 +7,12 @@ In this version, Service AI provide 3 main feature:
 ```
 
 ## Result
-
+### Find with BIB code
+![](./assets/images/bib-findor.jpg)
+### Find with clothes
+![](./assets/images/clothe-findor.jpg)
+### Find with face
+![](./assets/images/face-findor.jpg)
 
 ## Architecture
 
