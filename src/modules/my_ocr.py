@@ -10,7 +10,7 @@ class OCRResult:
 
 class MyOCR:
     def __init__(self):
-        self.ocr = PaddleOCR(use_angle_cls=True, lang='en') # need to run only once to download and load model into memory
+        self.ocr = PaddleOCR(use_angle_cls=True, lang='en')
         print("Initialized MyOCR")
     
     def detect(self, image: np.ndarray) -> List[OCRResult]:
@@ -23,3 +23,22 @@ class MyOCR:
                 result.append(OCRResult(line[0], line[1][0], line[1][1]))
 
         return result
+    
+    def detect_with_bib_code(self, images: List[np.ndarray], bib_code: str):
+        match_bib = []
+        for image in images:
+            detects = self.ocr.ocr(image, cls=True)
+            bib_code_str = ""
+            is_matching = False
+            for res in detects:
+                if (is_matching):
+                    break
+                for line in res:
+                    text = line[1][0]
+                    bib_code_str += "|" + text
+                    if bib_code == text:
+                        is_matching = True
+                        break
+            match_bib.append({"match_bib": is_matching, "text": bib_code_str})
+        return match_bib
+                
