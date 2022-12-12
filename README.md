@@ -1,11 +1,9 @@
 # KMS-PictureFinder-AI
 
 ## Video demo
-Comming soon...
+Use this link: [https://youtu.be/_8mVyfxF-9o](https://youtu.be/_8mVyfxF-9o)
 
-(replace the link youtube + "/sddefault.jpg" to get the maximum resolution thumbnail)
-
-![Watch the video](https://img.youtube.com/vi/nTQUwghvy5Q/maxresdefault.jpg)](https://youtu.be/nTQUwghvy5Q)
+![Watch the video](https://youtu.be/_8mVyfxF-9o/maxresdefault.jpg)](https://youtu.be/_8mVyfxF-9o)
 
 ## Architecture
 
