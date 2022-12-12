@@ -1,7 +1,13 @@
 # KMS-PictureFinder-AI
+```
+In this version, Service AI provide 3 main feature:
+- Find person in picture with the face (InsightFace)
+- Find person in picture with BIB code (PaddleOCR)
+- Find person in picture with Clothes (Openpifpaf + Histogram comparison)
+```
 
-## Video demo
-Comming soon...
+## Result
+
 
 ## Architecture
 
