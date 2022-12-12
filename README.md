@@ -14,6 +14,10 @@ In this version, Service AI provide 3 main feature:
 ### Find with face
 ![](./assets/images/face-findor.jpg)
 
+(replace the link youtube + "/sddefault.jpg" to get the maximum resolution thumbnail)
+
+![Watch the video](https://img.youtube.com/vi/nTQUwghvy5Q/maxresdefault.jpg)](https://youtu.be/nTQUwghvy5Q)
+
 ## Architecture
 
 * **Current version**
