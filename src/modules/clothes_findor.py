@@ -38,7 +38,6 @@ class ClothesCompare:
   def check_if_match(self, images):
     anchor_emb = np.array([self.encode_image(self.anchor)]) 
     encoded_images = np.array([self.encode_image(image) for image in images])
-    print(anchor_emb.shape, encoded_images.shape)
     similarity = cosine_similarity(anchor_emb, encoded_images)[0]
     return  similarity
 

@@ -1,4 +1,5 @@
-from paddleocr import PaddleOCR,draw_ocr
+from paddleocr import PaddleOCR
+from src.modules.upper_crop import UpperCrop
 import numpy as np
 from typing import List
 
@@ -11,6 +12,7 @@ class OCRResult:
 class MyOCR:
     def __init__(self):
         self.ocr = PaddleOCR(use_angle_cls=True, lang='en')
+        self.croper = UpperCrop()
         print("Initialized MyOCR")
     
     def detect(self, image: np.ndarray) -> List[OCRResult]:
@@ -25,10 +27,25 @@ class MyOCR:
         return result
     
     def detect_with_bib_code(self, images: List[np.ndarray], bib_code: str):
+        match_bib = []
+        bib_code = bib_code.lower().strip()
         for image in images:
-            detects = self.ocr.ocr(image, cls=True)
+            roi_images = self.croper(image)
+            detects = []
+            for roi_image in roi_images:
+                detects.extend(self.ocr.ocr(roi_image[:, :, ::-1], cls=True))
+            confident = 1
+            is_matching = False
             for res in detects:
+                if is_matching:
+                    break
                 for line in res:
-                    text = line[1][0]
+                    text = line[1][0].lower().strip()
+                    conf = line[1][1]
                     if bib_code == text:
+                        is_matching = True
+                        confident = conf
                         break
+            match_bib.append({"match_bib": is_matching, "confident": confident})
+        return match_bib
+                
