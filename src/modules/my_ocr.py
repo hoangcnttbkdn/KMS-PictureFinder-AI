@@ -37,8 +37,8 @@ class MyOCR:
             confident = 1
             is_matching = False
             for res in detects:
-                # if (is_matching):
-                #     break
+                if is_matching:
+                    break
                 for line in res:
                     text = line[1][0].lower().strip()
                     print(text)
@@ -46,7 +46,7 @@ class MyOCR:
                     if bib_code == text:
                         is_matching = True
                         confident = conf
-                        # break
+                        break
             match_bib.append({"match_bib": is_matching, "confident": confident})
         return match_bib
                 
