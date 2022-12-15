@@ -54,7 +54,7 @@ pipeline {
                 sh 'echo deploy to SERVER 1'
                 sh "ssh -i /var/jenkins_home/.ssh/id_aiserver hoangsndxqn@35.247.172.2 './releaseAI.sh'"
                 sh 'echo deploy to SERVER 2'
-                sh "ssh -i /var/jenkins_home/.ssh/key_ai1 hoangsndxqn@35.187.230.182 './releaseAI.sh'"
+                sh "ssh -i /var/jenkins_home/.ssh/key_ai1 hoangsndxqn@34.87.94.31 './releaseAI.sh'"
             }
         }
     }
