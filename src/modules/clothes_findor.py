@@ -36,7 +36,7 @@ class ClothesCompare:
   def set_anchor(self, opencv_image):
     crop_images = self.croper(opencv_image)
     if len(crop_images) < 1:
-        raise HTTPException(detail="Face not found in target", status_code=404)
+        raise HTTPException(detail="Clothes not found in target", status_code=404)
     self.anchor = crop_images[0]
 
   def check_if_match(self, images):
