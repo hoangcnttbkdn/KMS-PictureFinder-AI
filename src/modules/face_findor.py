@@ -34,7 +34,7 @@ class FaceFindor:
         """
         predict = self.app.get(target_image)
         if len(predict) < 1:
-            raise HTTPException(detail="Face not found", status_code=404)
+            raise HTTPException(detail="Face not found in target", status_code=404)
         portrait_emb = predict[0]["embedding"] # Just get first embedding with shape 1x512
         # portrait_face = self.crop_image(target_image, predict[0]["bbox"], reverse_channel=True)
 
