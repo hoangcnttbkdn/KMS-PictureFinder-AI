@@ -7,4 +7,7 @@ install:
 	pip install -r requirements.txt
 
 run:
-	cd src && uvicorn app:app --port ${PORT}
+	uvicorn src.app:app --port ${PORT}
+
+dc-up:
+	docker compose up -d
