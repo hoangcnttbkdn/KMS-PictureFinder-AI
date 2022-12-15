@@ -4,6 +4,7 @@ import numpy as np
 from sklearn.metrics.pairwise import  cosine_similarity
 from src.modules.upper_crop import UpperCrop
 import imutils
+from fastapi import HTTPException
 
 
 
@@ -33,7 +34,10 @@ class ClothesCompare:
     return res
 
   def set_anchor(self, opencv_image):
-    self.anchor = self.croper(opencv_image)[0]
+    crop_images = self.croper(opencv_image)
+    if len(crop_images) < 1:
+        raise HTTPException(detail="Face not found in target", status_code=404)
+    self.anchor = crop_images[0]
 
   def check_if_match(self, images):
     anchor_emb = np.array([self.encode_image(self.anchor)]) 
