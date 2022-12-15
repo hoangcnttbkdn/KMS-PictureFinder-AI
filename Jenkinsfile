@@ -4,16 +4,20 @@ pipeline {
         DOCKER_IMAGE = "hoangsndxqn/kms-picture-finder-ai-service"
     }
     stages {
-        stage('Test') {
+        stage('Prepare workspace') {
             steps {
-                sh 'echo Test passed'
+                echo 'Prepare workspace'
+                step([$class: 'WsCleanup'])
+                script {
+                    def commit = checkout scm
+                    env.BRANCH_NAME = commit.GIT_BRANCH.replace('origin/', '')
+                }
             }
         }
-        stage('Docker build and push') {
+        stage('Docker build and push images') {
             environment {
                 DOCKER_TAG="${GIT_BRANCH.tokenize('/').pop()}-${GIT_COMMIT.substring(0,7)}"
-            }
-            
+            } 
             steps {
                 script {
                     echo DOCKER_TAG
@@ -29,14 +33,31 @@ pipeline {
                 sh "docker image rm ${DOCKER_IMAGE}:latest"
             }
         }
-        stage('SSH server and deploy') {
+        stage('Delpoy: DEVELOP') {
+            when {
+                expression {
+                    return (env.BRANCH_NAME == 'dev')
+                }
+            }
             steps{
-                sh 'echo deploy AI service'
-                sh "ssh -i /var/jenkins_home/.ssh/id_aiserver hoangsndxqn@35.247.172.2 './deployAI.sh'"
+                sh 'echo deploy to server dev'
+                sh "ssh -i /var/jenkins_home/.ssh/key_ai_dev hoangsndxqn@34.125.145.141 './developAI.sh'"
+            }
+        }
+        stage('Delpoy: RELEASE') {
+            when {
+                expression {
+                    return (env.BRANCH_NAME == "refs/tags/${GIT_BRANCH.tokenize('/').pop()}")
+                }
+            }
+            steps{
+                sh 'echo deploy to SERVER 1'
+                sh "ssh -i /var/jenkins_home/.ssh/id_aiserver hoangsndxqn@35.247.172.2 './releaseAI.sh'"
+                sh 'echo deploy to SERVER 2'
+                sh "ssh -i /var/jenkins_home/.ssh/key_ai1 hoangsndxqn@35.187.230.182 './releaseAI.sh'"
             }
         }
     }
-
     post {
         success {
             echo "SUCCESSFUL"
