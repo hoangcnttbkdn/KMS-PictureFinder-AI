@@ -41,7 +41,6 @@ class MyOCR:
                     break
                 for line in res:
                     text = line[1][0].lower().strip()
-                    print(text)
                     conf = line[1][1]
                     if bib_code == text:
                         is_matching = True

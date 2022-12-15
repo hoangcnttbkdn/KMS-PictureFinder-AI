@@ -1,5 +1,5 @@
 from typing import List
-from fastapi import FastAPI, File, UploadFile
+from fastapi import FastAPI, File, UploadFile, Form
 from src import utils
 
 from src.modules import FaceFindor
@@ -38,7 +38,7 @@ async def ocr_detect(image: UploadFile=File()):
     return result_list
 
 @app.post("/ocr-v2")
-async def ocr_detect(list_images: List[UploadFile], bib_code: str):
+async def ocr_detect(list_images: List[UploadFile], bib_code: str = Form(...)):
     BGR_list_images = [await utils.file2opencv(file) for file in list_images]
     index2file_name = [file.filename for file in list_images]
     result_list: List[OCRResult] = my_ocr.detect_with_bib_code(BGR_list_images, bib_code)
